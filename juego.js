@@ -2,6 +2,17 @@ var perdisteWav = new Audio("/sonidos/failuresound.wav");
 var saltoWav = new Audio("/sonidos/retrojump.wav");
 var imgRex, imgNube, imgCactus, imgSuelo;
 
+var ancho = 700;
+var alto = 300;
+var canvas,ctx;
+
+var suelo = 200;
+var trex = {y: suelo, vy: 0, gravedad: 2, salto: 28, vymax: 9, saltando: false};
+var nivel = {velocidad: 9, marcador: 0, muerto: false};
+var cactus = {x: ancho + 100, y: suelo - 5};
+var nube = {x: 730, y: 20, velocidad: 1};
+var suelog = {x: 0, y: 242};
+
 
 document.addEventListener('keydown', function(event){
     if(event.code == "Space") {
@@ -24,9 +35,7 @@ document.addEventListener('keydown', function(event){
     }
 });
 
-
-
- 
+//Cargar Imagenes
 function cargaImagenes(){
     imgRex = new Image();
     imgNube = new Image();
@@ -39,13 +48,7 @@ function cargaImagenes(){
     imgSuelo.src = '/img/Suelo.png'
 }
 
-
-
-var ancho = 700;
-var alto = 300;
-var canvas,ctx;
-
-
+//Iniciar Canvas y cargar las imagenes
 function inicializa(){
     canvas = document.getElementById("canvas");
     ctx = canvas.getContext("2d");
@@ -58,13 +61,6 @@ function borraCanvas(){
     canvas.width = ancho;
     canvas.height = alto;
 }
-
-var suelo = 200;
-var trex = {y: suelo, vy: 0, gravedad: 2, salto: 28, vymax: 9, saltando: false};
-var nivel = {velocidad: 9, marcador: 0, muerto: false};
-var cactus = {x: ancho + 100, y: suelo - 5};
-var nube = {x: 730, y: 20, velocidad: 1};
-var suelog = {x: 0, y: 242};
 
 function dibujaRex(){
     cargaImagenes();
@@ -106,14 +102,12 @@ function logicaNube(){
     }
 }
 
-
 function dibujarSuelo(){
     cargaImagenes();
     canvas = document.getElementById("canvas");
     ctx = canvas.getContext("2d");
     ctx.drawImage(imgSuelo,suelog.x,0,2377,12,0,suelog.y,2377,12)
 }
-
 
 function logicaSuelo(){
     if(suelog.x > 1700){
@@ -123,8 +117,6 @@ function logicaSuelo(){
         suelog.x += nivel.velocidad;
     }
 }
-
-
 
 function saltar(){
     saltoWav.play();
@@ -147,31 +139,15 @@ function gravedad(){
     }
 }
 
-
 function colision(){
     if(cactus.x >= 50 && cactus.x <= 150){
         if(trex.y >= suelo-25){
             nivel.muerto = true;
             nivel.velocidad = 0;
             nube.velocidad = 0;
-            
-
-            /* for (let step = 0; step < 1; step++) {
-                // Se ejecuta 5 veces, con valores del paso 0 al 4.
-                console.log('Camina un paso hacia el este');
-              } */
-            /* saltoWav.currentTime = -1;
-            saltoWav.play(); */
-            /* saltoWav.loop = false;
-            saltoWav.play(); */
-            
         }
-        
-        
     }
-    
 }
-
 
 function puntuacion(){
     
@@ -187,14 +163,11 @@ function puntuacion(){
     }
 }
 
-
 //BUCLE PRINCIPAL
 const FPS = 50;
 setInterval(function(){
     principal();
 },1000/FPS);
-
-
 
 function principal(){
     borraCanvas();
