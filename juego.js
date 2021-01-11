@@ -173,7 +173,7 @@ function puntuacion(){
     if(nivel.muerto == true){
         ctx.font = "68px impact";
         ctx.fillStyle = "#555555";
-        ctx.fillText(`Tu puntuación: ${nivel.marcador}`,100,80);
+        ctx.fillText(`Tu puntuacion: ${nivel.marcador}`,100,80);
         
     }else {
         ctx.font = "30px impact";
