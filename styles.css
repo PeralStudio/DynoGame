@@ -1,0 +1,12 @@
+#body {
+    background-color: white;
+}
+
+#canvas {
+    background-color: white;
+}
+
+#allcanvas {
+    text-align: -webkit-center;
+    margin-top: 10rem;
+}
